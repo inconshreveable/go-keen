@@ -29,6 +29,7 @@ The simplest API is to create a client object and then call AddEvent:
             })
     }
 
+## Batch event reporting
 
 For production use, it makes more sense to add events to an internal buffer which is
 flushed to Keen at a regular interval in a single batch upload call. The go-keen library provides

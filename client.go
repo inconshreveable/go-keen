@@ -12,6 +12,10 @@ const (
 	baseUrl = "https://api.keen.io/3.0/projects/"
 )
 
+type KeenProperties struct {
+    Timestamp string `json: "timestamp"`
+}
+
 type Client struct {
 	ApiKey       string
 	ProjectToken string

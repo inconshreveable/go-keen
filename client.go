@@ -42,7 +42,7 @@ func (c *Client) AddEvents(events map[string][]interface{}) error {
 
 func (c *Client) respToError(resp *http.Response) error {
 	defer resp.Body.Close()
-	if resp.StatusCode == 200 {
+	if resp.StatusCode >= 200 || resp.StatusCode < 300 {
 		return nil
 	}
 

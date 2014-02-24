@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 const (
@@ -13,7 +14,12 @@ const (
 )
 
 type KeenProperties struct {
-    Timestamp string `json: "timestamp"`
+	Timestamp string `json: "timestamp"`
+}
+
+// Timestamp formats a time.Time object in the ISO-8601 format keen expects
+func Timestamp(t time.Time) string {
+	return t.UTC().Format("2006-01-02T15:04:05.000Z")
 }
 
 type Client struct {

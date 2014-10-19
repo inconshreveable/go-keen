@@ -14,7 +14,7 @@ const (
 )
 
 type KeenProperties struct {
-	Timestamp string `json: "timestamp"`
+	Timestamp string `json:"timestamp"`
 }
 
 // Timestamp formats a time.Time object in the ISO-8601 format keen expects

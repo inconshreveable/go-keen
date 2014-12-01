@@ -1,10 +1,10 @@
-# go-keen: A Keen IO client SDK in Go [![godoc reference](http://godoc.org/gopkg.in/inconshreveable/go-keen.v0?status.png)](http://godoc.org/gopkg.in/inconshreveable/go-keen.v0)
+# Keen IO golang client SDK [![godoc reference](http://godoc.org/gopkg.in/inconshreveable/go-keen.v0?status.png)](http://godoc.org/gopkg.in/inconshreveable/go-keen.v0)
 
 ## API Stability
 
 The master branch has no API stability guarantees. You can import the latest stable API with:
 ```go
-    import "gopkg.in/inconshreveable/go-keen.v0"
+import "gopkg.in/inconshreveable/go-keen.v0"
 ````
 
 ## Writing Events

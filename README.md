@@ -27,7 +27,7 @@ type ExampleEvent struct {
 }
 
 func main() {
-        keenClient := &keen.Client{ ApiKey: "XXX", ProjectToken: "XXX" }
+        keenClient := &keen.Client{ WriteKey: "XXX", ProjectID: "XXX" }
         keenClient.AddEvent("collection_name", &ExampleEvent{
                 UserId: 102,
                 Amount: 39,
@@ -62,7 +62,7 @@ type ExampleEvent struct {
 }
 
 func main() {
-        keenClient := &keen.Client{ ApiKey: "XXX", ProjectToken: "XXX" }
+        keenClient := &keen.Client{ WriteKey: "XXX", ProjectID: "XXX" }
         keenBatchClient := keen.NewBatchClient(keenClient, keenFlushInterval)
         keenBatchClient.AddEvent("collection_name", &ExampleEvent{
             UserId: 102,

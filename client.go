@@ -23,9 +23,9 @@ func Timestamp(t time.Time) string {
 }
 
 type Client struct {
-	ApiKey       string
-	ProjectToken string
-	HttpClient   http.Client
+	WriteKey   string
+	ProjectID  string
+	HttpClient http.Client
 }
 
 func (c *Client) AddEvent(collection string, event interface{}) error {
@@ -68,7 +68,7 @@ func (c *Client) request(method, path string, payload interface{}) (*http.Respon
 	}
 
 	// construct url
-	url := baseUrl + c.ProjectToken + path
+	url := baseUrl + c.ProjectID + path
 
 	// new request
 	req, err := http.NewRequest(method, url, bytes.NewReader(body))
@@ -77,7 +77,7 @@ func (c *Client) request(method, path string, payload interface{}) (*http.Respon
 	}
 
 	// add auth
-	req.Header.Add("Authorization", c.ApiKey)
+	req.Header.Add("Authorization", c.WriteKey)
 
 	// set length/content-type
 	if body != nil {

@@ -1,6 +1,13 @@
-# go-keen: A Keen IO client SDK in Go
+# go-keen: A Keen IO client SDK in Go [![godoc reference](http://godoc.org/gopkg.in/inconshreveable/go-keen.v0?status.png)](http://godoc.org/gopkg.in/inconshreveable/go-keen.v0)
 
-### [Full API Documentation](https://godoc.org/github.com/inconshreveable/go-keen)
+## API Stability
+
+The master branch has no API stability guarantees. You can import the latest stable API with:
+```go
+    import "gopkg.in/inconshreveable/go-keen.v0"
+````
+
+## Writing Events
 
 This is the very beginnings of a Keen IO client SDK in Go. Currently, only adding events to collections is supported.
 

@@ -1,5 +1,8 @@
 # Keen IO golang client SDK [![godoc reference](http://godoc.org/gopkg.in/inconshreveable/go-keen.v0?status.png)](http://godoc.org/gopkg.in/inconshreveable/go-keen.v0)
 
+### Community-Supported SDK
+This is an _unofficial_ community supported SDK. If you find any issues or have a request please post an [issue](https://github.com/inconshreveable/go-keen/issues).
+
 ## API Stability
 
 The master branch has no API stability guarantees. You can import the latest stable API with:

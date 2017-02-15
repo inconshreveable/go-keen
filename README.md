@@ -78,3 +78,7 @@ func main() {
 
 ## TODO
 Add support for all other Keen IO API endpoints, espeically querying data.
+
+
+## LICENSE
+MIT

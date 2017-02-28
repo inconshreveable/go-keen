@@ -30,7 +30,7 @@ type ExampleEvent struct {
 }
 
 func main() {
-        keenClient := &keen.Client{ WriteKey: "XXX", ProjectID: "XXX" }
+        keenClient := &keen.Client{ ApiKey: "XXX", ProjectToken: "XXX" }
         keenClient.AddEvent("collection_name", &ExampleEvent{
                 UserId: 102,
                 Amount: 39,
@@ -65,7 +65,7 @@ type ExampleEvent struct {
 }
 
 func main() {
-        keenClient := &keen.Client{ WriteKey: "XXX", ProjectID: "XXX" }
+        keenClient := &keen.Client{ ApiKey: "XXX", ProjectToken: "XXX" }
         keenBatchClient := keen.NewBatchClient(keenClient, keenFlushInterval)
         keenBatchClient.AddEvent("collection_name", &ExampleEvent{
             UserId: 102,
@@ -77,7 +77,7 @@ func main() {
 ```
 
 ## TODO
-Add support for all other Keen IO API endpoints, espeically querying data.
+Add support for all other Keen IO API endpoints, especially querying data.
 
 
 ## LICENSE

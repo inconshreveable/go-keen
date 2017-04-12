@@ -65,7 +65,7 @@ type ExampleEvent struct {
 }
 
 func main() {
-        keenClient := &keen.Client{ ApiKey: "XXX", ProjectToken: "XXX" }
+        keenClient := &keen.Client{ WriteKey: "XXX", ProjectId: "XXX" }
         keenBatchClient := keen.NewBatchClient(keenClient, keenFlushInterval)
         keenBatchClient.AddEvent("collection_name", &ExampleEvent{
             UserId: 102,
@@ -73,6 +73,39 @@ func main() {
             Type: "ball",
             Tags: []string{ "red", "bouncy" },
         })
+}
+```
+
+## Simple queries
+
+For single queries, use the ```keen.Query()``` interface. For example: 
+
+```go
+package main
+
+import (
+    "fmt"
+    keen "github.com/inconshreveable/go-keen"
+)
+
+type Query struct {
+    EventCollection string  `json:"event_collection,omitempty"`
+    TargetProperty  string  `json:"target_property,omitempty"`
+    Timeframe       string  `json:"timeframe,omitempty"`
+    GroupBy         string  `json:"group_by,omitempty"`
+    Interval        string  `json:"interval,omitempty"`
+    Percentile      float64 `json:"percentile,omitempty"`
+}
+
+func main() {
+    var client = &keen.Client{ReadKey: "XXX", ProjectId: "YYY", WriteKey: "ZZZ"}
+
+    resp, err := client.Query("count", Query{EventCollection: "<event_collection>", Timeframe: "this_14_days", Interval: "daily"})
+    if err != nil {
+        panic(err)
+    }
+
+    fmt.Printf("count: %v\n", resp)
 }
 ```
 

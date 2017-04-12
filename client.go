@@ -24,12 +24,13 @@ func Timestamp(t time.Time) string {
 
 type Client struct {
 	WriteKey   string
+	ReadKey    string
 	ProjectID  string
 	HttpClient http.Client
 }
 
 func (c *Client) AddEvent(collection string, event interface{}) error {
-	resp, err := c.request("POST", fmt.Sprintf("/events/%s", collection), event)
+	resp, err := c.request(c.WriteKey, "POST", fmt.Sprintf("/events/%s", collection), event)
 	if err != nil {
 		return err
 	}
@@ -38,12 +39,20 @@ func (c *Client) AddEvent(collection string, event interface{}) error {
 }
 
 func (c *Client) AddEvents(events map[string][]interface{}) error {
-	resp, err := c.request("POST", "/events", events)
+	resp, err := c.request(c.WriteKey, "POST", "/events", events)
 	if err != nil {
 		return err
 	}
 
 	return c.respToError(resp)
+}
+
+func (c *Client) Query(analysisType string, query interface{}) (string, error) {
+	resp, err := c.request(c.ReadKey, "POST", fmt.Sprintf("/queries/%s", analysisType), query)
+	if err != nil {
+		return "", err
+	}
+	return c.respToString(resp)
 }
 
 func (c *Client) respToError(resp *http.Response) error {
@@ -60,7 +69,20 @@ func (c *Client) respToError(resp *http.Response) error {
 	return fmt.Errorf("Non 200 reply from keen.io: %s", data)
 }
 
-func (c *Client) request(method, path string, payload interface{}) (*http.Response, error) {
+func (c *Client) respToString(resp *http.Response) (string, error) {
+	defer resp.Body.Close()
+
+	data, err := ioutil.ReadAll(resp.Body)
+	if resp.StatusCode >= 200 && resp.StatusCode < 300 {
+		if err != nil {
+			return string(data), fmt.Errorf("Problem reading the data: %s", data)
+		}
+		return string(data), nil
+	}
+	return string(data), fmt.Errorf("Non 200 reply from keen.io: %s", data)
+}
+
+func (c *Client) request(authorization string, method, path string, payload interface{}) (*http.Response, error) {
 	// serialize payload
 	body, err := json.Marshal(payload)
 	if err != nil {
@@ -77,7 +99,7 @@ func (c *Client) request(method, path string, payload interface{}) (*http.Respon
 	}
 
 	// add auth
-	req.Header.Add("Authorization", c.WriteKey)
+	req.Header.Add("Authorization", authorization)
 
 	// set length/content-type
 	if body != nil {
